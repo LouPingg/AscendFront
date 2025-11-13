@@ -55,3 +55,33 @@
   border: 2px solid #ff3333;
   box-shadow: 0 0 25px rgba(255, 60, 60, 0.4);
 }
+
+/* Delete button */
+.event-delete-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 0, 0, 0.75);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+  z-index: 10;
+}
+
+.event-delete-btn:hover {
+  background: rgba(255, 40, 40, 0.95);
+  transform: scale(1.15);
+}
+.event-author {
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  opacity: 0.9;
+}
