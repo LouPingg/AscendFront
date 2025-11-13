@@ -1,30 +1,50 @@
+// src/pages/Gallery.jsx
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { useAuth } from "../context/AuthContext";
 
+import AlbumCard from "../components/Gallery/AlbumCard";
+import "../styles/gallery.css";
+
 export default function Gallery() {
+  const { user } = useAuth();
   const [albums, setAlbums] = useState([]);
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
-  const { user } = useAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAlbums();
   }, []);
 
-  // === Récupérer tous les albums ===
+  // === FETCH ALBUMS + PHOTO COUNT ===
   const fetchAlbums = async () => {
     try {
       const res = await api.get("/gallery/albums");
-      setAlbums(res.data);
+
+      const enriched = await Promise.all(
+        res.data.map(async (album) => {
+          try {
+            const photos = await api.get(`/gallery/albums/${album._id}/photos`);
+            return {
+              ...album,
+              photoCount: photos.data.length,
+            };
+          } catch {
+            return {
+              ...album,
+              photoCount: 0,
+            };
+          }
+        })
+      );
+
+      setAlbums(enriched);
     } catch (err) {
       console.error("❌ Error fetching albums:", err);
     }
   };
 
-  // === Créer un album (avec éventuellement une image de couverture) ===
+  // === CREATE ALBUM ===
   const handleCreate = async (e) => {
     e.preventDefault();
     if (!title.trim()) return;
@@ -37,6 +57,7 @@ export default function Gallery() {
       await api.post("/gallery/albums", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       setTitle("");
       setFile(null);
       fetchAlbums();
@@ -45,11 +66,12 @@ export default function Gallery() {
     }
   };
 
-  // === Supprimer un album ===
-  const handleDelete = async (id) => {
+  // === DELETE ALBUM ===
+  const handleDelete = async (albumId) => {
     if (!window.confirm("Delete this album?")) return;
+
     try {
-      await api.delete(`/gallery/albums/${id}`);
+      await api.delete(`/gallery/albums/${albumId}`);
       fetchAlbums();
     } catch (err) {
       console.error("❌ Error deleting album:", err);
@@ -57,61 +79,47 @@ export default function Gallery() {
   };
 
   return (
-    <section className="gallery">
-      <h2>Gallery</h2>
+    <section className="gallery-page">
+      <h2 className="gallery-title">
+        <span className="icon">📁</span> Gallery
+      </h2>
 
-      {/* Formulaire de création d’album (visible pour les users connectés) */}
+      {/* ===== CREATE ALBUM ===== */}
       {user && (
-        <form className="create-album" onSubmit={handleCreate}>
+        <form className="create-album-form" onSubmit={handleCreate}>
           <input
             type="text"
+            placeholder="Album title..."
             value={title}
-            placeholder="Album title"
             onChange={(e) => setTitle(e.target.value)}
-            required
           />
+
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <button type="submit">Create Album</button>
+
+          <button type="submit">Create album</button>
         </form>
       )}
 
-      {/* Liste des albums */}
+      {/* ===== ALBUM GRID ===== */}
       <div className="album-grid">
         {albums.length === 0 ? (
           <p>No albums yet.</p>
         ) : (
           albums.map((album) => (
-            <div
+            <AlbumCard
               key={album._id}
-              className="album-card"
-              onClick={() => navigate(`/album/${album._id}`)}
-            >
-              {album.coverUrl ? (
-                <img src={album.coverUrl} alt={album.title} />
-              ) : (
-                <div className="album-placeholder">No cover</div>
-              )}
-
-              <h3>{album.title}</h3>
-              <p>by {album.createdBy?.nickname || "Unknown"}</p>
-
-              {(user?.role === "admin" ||
-                user?._id === album.createdBy?._id) && (
-                <button
-                  className="delete-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(album._id);
-                  }}
-                >
-                  Delete
-                </button>
-              )}
-            </div>
+              album={album}
+              onDelete={
+                user &&
+                (user.role === "admin" || user._id === album.createdBy?._id)
+                  ? handleDelete
+                  : null
+              }
+            />
           ))
         )}
       </div>

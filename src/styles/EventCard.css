@@ -1,0 +1,57 @@
+/* === EVENT CARD === */
+.event-card {
+  background: #111;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  max-width: 900px;       
+  margin: 0 auto;          
+  width: 100%;   
+}
+
+/* Hover rouge néon */
+.event-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(255, 30, 30, 0.45);
+  border-color: rgba(255, 50, 50, 0.6);
+}
+
+.event-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* === INFO === */
+.event-info {
+  padding: 18px;
+  text-align: center; /* ⭐ tout centrer */
+}
+
+.event-info h3 {
+  color: #b30000; /* rouge foncé */
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.event-info p {
+  color: #ccc;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+/* COUNTDOWN vert flashy */
+.event-info .countdown {
+  color: #33ff66; /* vert néon */
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* Badge actif */
+.event-card.active {
+  border: 2px solid #ff3333;
+  box-shadow: 0 0 25px rgba(255, 60, 60, 0.4);
+}

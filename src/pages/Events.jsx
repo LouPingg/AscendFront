@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { useAuth } from "../context/AuthContext";
+import EventCard from "../components/EventCard";
+import "../styles/Events.css";
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -21,9 +23,7 @@ export default function Events() {
     try {
       const res = await api.get("/events");
       setEvents(
-        res.data.sort(
-          (a, b) => new Date(a.startAt) - new Date(b.startAt)
-        )
+        res.data.sort((a, b) => new Date(a.startAt) - new Date(b.startAt))
       );
     } catch (err) {
       console.error("Error fetching events:", err);
@@ -32,39 +32,24 @@ export default function Events() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "image") setForm({ ...form, image: files[0] });
-    else setForm({ ...form, [name]: value });
+    if (name === "image") {
+      setForm({ ...form, image: files[0] });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    const start = new Date(form.startAt);
-    const end = new Date(form.endAt);
-    const now = new Date();
-
-    // ✅ Vérification côté front avant envoi
-    if (isNaN(start) || isNaN(end)) {
-      alert("Please select valid start and end dates.");
-      return;
-    }
-    if (end <= now) {
-      alert("End date must be in the future.");
-      return;
-    }
-    if (end <= start) {
-      alert("End date must be after start date.");
-      return;
-    }
+    const fd = new FormData();
+    Object.entries(form).forEach(([key, val]) => fd.append(key, val));
 
     try {
-      const fd = new FormData();
-      Object.entries(form).forEach(([key, val]) =>
-        fd.append(key, val)
-      );
       await api.post("/events", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       setForm({
         title: "",
         description: "",
@@ -72,53 +57,37 @@ export default function Events() {
         endAt: "",
         image: null,
       });
+
       fetchEvents();
     } catch (err) {
       console.error("Error creating event:", err);
-      alert(
-        err.response?.data?.message || "Failed to create event."
-      );
+      alert("Failed to create event");
     }
   };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this event?")) return;
-    try {
-      await api.delete(`/events/${id}`);
-      fetchEvents();
-    } catch (err) {
-      console.error("Error deleting event:", err);
-      alert("Failed to delete event.");
-    }
-  };
-
-  const canEdit = (ev) =>
-    user &&
-    (user.role === "admin" || user._id === ev.createdBy?._id);
 
   return (
     <section className="events">
-      <h2>All Events</h2>
+      <h2 className="section-title"><span className="icon">🕒</span> All Events</h2>
 
-      {/* ✅ Tous les utilisateurs connectés peuvent créer */}
       {user && (
         <form className="event-form" onSubmit={handleCreate}>
+          <label>Title</label>
           <input
-            type="text"
             name="title"
-            placeholder="Title"
             value={form.title}
             onChange={handleChange}
             required
           />
+
+          <label>Description</label>
           <textarea
             name="description"
-            placeholder="Description"
             value={form.description}
             onChange={handleChange}
             required
           />
-          <label>Start date:</label>
+
+          <label>Start date</label>
           <input
             type="datetime-local"
             name="startAt"
@@ -126,7 +95,8 @@ export default function Events() {
             onChange={handleChange}
             required
           />
-          <label>End date:</label>
+
+          <label>End date</label>
           <input
             type="datetime-local"
             name="endAt"
@@ -134,37 +104,23 @@ export default function Events() {
             onChange={handleChange}
             required
           />
+
+          <label>Event image</label>
           <input
             type="file"
             name="image"
             accept="image/*"
             onChange={handleChange}
           />
-          <button type="submit">Create event</button>
+
+          <button type="submit">CREATE EVENT</button>
         </form>
       )}
 
       <div className="event-list">
-        {events.length === 0 ? (
-          <p>No events yet.</p>
-        ) : (
-          events.map((ev) => (
-            <div key={ev._id} className="event-card">
-              {ev.imageUrl && <img src={ev.imageUrl} alt={ev.title} />}
-              <h3>{ev.title}</h3>
-              <p>{ev.description}</p>
-              <p>
-                {new Date(ev.startAt).toLocaleString()} →{" "}
-                {new Date(ev.endAt).toLocaleString()}
-              </p>
-              <p>by {ev.createdBy?.nickname || "?"}</p>
-
-              {canEdit(ev) && (
-                <button onClick={() => handleDelete(ev._id)}>🗑</button>
-              )}
-            </div>
-          ))
-        )}
+        {events.map((ev) => (
+          <EventCard key={ev._id} event={ev} />
+        ))}
       </div>
     </section>
   );

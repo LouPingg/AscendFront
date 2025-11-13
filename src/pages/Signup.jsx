@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/auth.css";
 
 export default function Signup() {
   const [nickname, setNickname] = useState("");
@@ -22,17 +23,20 @@ export default function Signup() {
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <h2>Signup</h2>
+
       <input
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
         placeholder="Nickname"
       />
+
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+
       <button type="submit">Create account</button>
     </form>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
+import "../styles/admin.css";
 
 export default function Admin() {
   const [whitelist, setWhitelist] = useState([]);

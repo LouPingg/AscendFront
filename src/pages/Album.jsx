@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+// src/pages/Album.jsx
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import api from "../utils/api";
 import { useAuth } from "../context/AuthContext";
+
+import PhotoCard from "../components/Gallery/PhotoCard";
+import Lightbox from "../components/Gallery/Lightbox";
+
+import "../styles/album.css";
+import "../styles/lightbox.css";
 
 export default function Album() {
   const { id } = useParams();
@@ -10,15 +18,17 @@ export default function Album() {
 
   const [album, setAlbum] = useState(null);
   const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [file, setFile] = useState(null);
+
+  const [lightboxPhoto, setLightboxPhoto] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   useEffect(() => {
     fetchAlbum();
     fetchPhotos();
-  }, []);
+  }, [id]); // dépend de l'id
 
-  // === Récupérer les infos de l’album ===
+  // === FETCH ALBUM (liste complète puis find) ===
   const fetchAlbum = async () => {
     try {
       const res = await api.get("/gallery/albums");
@@ -29,68 +39,84 @@ export default function Album() {
     }
   };
 
-  // === Récupérer les photos associées à cet album ===
+  // === FETCH PHOTOS ===
   const fetchPhotos = async () => {
     try {
       const res = await api.get(`/gallery/albums/${id}/photos`);
-      setPhotos(res.data);
+      setPhotos(res.data); // le backend renvoie un tableau de photos
     } catch (err) {
       console.error("❌ Error fetching photos:", err);
-    } finally {
-      setLoading(false);
     }
   };
 
-  // === Upload d’une photo ===
+  // === UPLOAD PHOTO ===
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("image", file);
+    const fd = new FormData();
+    fd.append("image", file);
 
     try {
-      await api.post(`/gallery/albums/${id}/photos`, formData, {
+      await api.post(`/gallery/albums/${id}/photos`, fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
       setFile(null);
       fetchPhotos();
-      fetchAlbum(); // met à jour la cover si c’était la première photo
+      fetchAlbum(); // met à jour le compteur côté album
     } catch (err) {
-      console.error("❌ Error uploading photo:", err);
+      console.error("❌ Error uploading:", err);
     }
   };
 
-  // === Supprimer une photo ===
+  // === DELETE PHOTO ===
   const handleDelete = async (photoId) => {
     if (!window.confirm("Delete this photo?")) return;
+
     try {
       await api.delete(`/gallery/photos/${photoId}`);
       fetchPhotos();
       fetchAlbum();
     } catch (err) {
-      console.error("❌ Error deleting photo:", err);
+      console.error("❌ Error deleting:", err);
     }
   };
 
-  if (loading) return <p className="loading">Loading album...</p>;
+  // === NAVIGATION LIGHTBOX ===
+  const navigateLightbox = (dir) => {
+    if (!photos.length || currentIndex === null) return;
+
+    let newIndex =
+      dir === "next"
+        ? (currentIndex + 1) % photos.length
+        : (currentIndex - 1 + photos.length) % photos.length;
+
+    setCurrentIndex(newIndex);
+    setLightboxPhoto(photos[newIndex]);
+  };
+
   if (!album) return <p>Album not found.</p>;
 
   const canEdit =
     user && (user.role === "admin" || user._id === album.createdBy?._id);
 
   return (
-    <div className="album-page">
-      <button className="back-btn" onClick={() => navigate(-1)}>
+    <section className="album-page">
+      {/* BACK BUTTON */}
+      <button className="back-button" onClick={() => navigate("/gallery")}>
         ← Back
       </button>
 
-      <h2>{album.title}</h2>
-      <p>
+      <h2 className="section-title">
+        <span className="icon">📷</span> {album.title}
+      </h2>
+
+      <p className="album-author-info">
         Created by <strong>{album.createdBy?.nickname || "Unknown"}</strong>
       </p>
 
-      {/* Upload form visible seulement pour créateur ou admin */}
+      {/* UPLOAD FORM */}
       {canEdit && (
         <form className="upload-form" onSubmit={handleUpload}>
           <input
@@ -98,33 +124,42 @@ export default function Album() {
             accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <button type="submit">Upload photo</button>
+          <button type="submit">Upload Photo</button>
         </form>
       )}
 
-      {/* Galerie des photos */}
+      {/* GRID DES PHOTOS */}
       <div className="photo-grid">
         {photos.length === 0 ? (
           <p>No photos yet.</p>
         ) : (
-          photos.map((photo) => (
-            <div key={photo._id} className="photo-card">
-              <img src={photo.imageUrl} alt={album.title} />
-
-              {/* ✅ Bouton visible pour admin ou créateur */}
-              {(user?.role === "admin" ||
-                user?._id === photo.createdBy?._id) && (
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDelete(photo._id)}
-                >
-                  🗑
-                </button>
-              )}
-            </div>
+          photos.map((photo, index) => (
+            <PhotoCard
+              key={photo._id}
+              photo={photo}
+              onOpen={() => {
+                setLightboxPhoto(photo);
+                setCurrentIndex(index);
+              }}
+              onDelete={
+                user &&
+                (user.role === "admin" ||
+                  user._id === photo.createdBy?._id)
+                  ? () => handleDelete(photo._id)
+                  : null
+              }
+            />
           ))
         )}
       </div>
-    </div>
+
+      {/* LIGHTBOX */}
+      <Lightbox
+        photo={lightboxPhoto}
+        photos={photos}
+        onClose={() => setLightboxPhoto(null)}
+        onNavigate={navigateLightbox}
+      />
+    </section>
   );
 }

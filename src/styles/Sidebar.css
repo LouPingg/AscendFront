@@ -1,51 +1,82 @@
+/* ===== SIDEBAR ===== */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 70px;
-  background: linear-gradient(180deg, #200000 0%, #0b0b0b 100%);
-  transition: width 0.3s;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  height: 100vh;
+  width: 80px;
+  background: linear-gradient(180deg, #000000 0%, #150000 40%, #4a0000 100%);
+  transition: width 0.35s ease;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
 }
 
 .sidebar:hover {
-  width: 200px;
+  width: 240px;
 }
 
-.sidebar-content {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sidebar ul {
-  list-style: none;
-  width: 100%;
-  padding: 0;
-}
-
-.sidebar li {
-  text-align: left;
-  padding: 14px 20px;
-  transition: background 0.3s;
-}
-
-.sidebar a, .sidebar button {
-  text-decoration: none;
+/* ===== TITLE ===== */
+.sidebar-title {
   color: var(--text);
-  font-weight: 500;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding-left: 25px;
+  margin-bottom: 35px;
+  letter-spacing: 2px;
+}
+
+/* ===== NAVIGATION ===== */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 22px; /* <-- ESPACEMENT ENTRE TOUS LES LINKS */
+}
+
+.sidebar-nav a,
+.sidebar-nav button {
+  padding: 14px 25px;
   background: none;
   border: none;
   width: 100%;
-  text-align: left;
-  font-size: 1rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.25s;
 }
 
-.sidebar li:hover {
-  background: rgba(213, 26, 26, 0.3);
+.sidebar-nav a:hover,
+.sidebar-nav button:hover {
+  background: rgba(255, 0, 0, 0.25);
+}
+
+/* ===== Logout button ===== */
+.logout-btn {
+  color: #ff6b6b;
+}
+.logout-btn:hover {
+  background: rgba(255, 0, 0, 0.35);
+}
+
+/* ===== ADMIN SEPARATOR ===== */
+.sidebar-separator {
+  width: 80%;
+  height: 1px;
+  margin: 10px auto;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-link {
+  color: #ffb3b3;
+  font-weight: 600;
+}
+
+.admin-link:hover {
+  background: rgba(255, 90, 90, 0.35);
 }

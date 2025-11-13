@@ -1,91 +1,270 @@
-.gallery-page main {
-  padding: 50px 30px;
+/* =========================================
+   GALLERY PAGE — ALBUM LIST
+========================================= */
+
+.gallery-page {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .gallery-title {
-  text-align: center;
   font-size: 2rem;
-  color: var(--accent);
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #a30000;
+  text-shadow: 0 0 8px rgba(255,0,0,0.4);
+  font-family: "Bebas Neue", sans-serif;
 }
 
-/* ==== Album grid ==== */
+
+
+/* ===== GRID DES ALBUMS ===== */
 .album-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
+  gap: 35px;
+  padding: 20px 20px;
+  width: 100%;
 }
 
+/* ===== CARD ALBUM ===== */
 .album-card {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  box-shadow:
+    0 0 12px rgba(0,0,0,0.4),
+    0 0 22px rgba(255,0,0,0.15);
+  transition: 0.25s ease;
+  cursor: pointer;
+  position: relative;
   overflow: hidden;
-  text-align: center;
-  transition: transform 0.25s;
 }
 
 .album-card:hover {
-  transform: translateY(-4px);
+  transform: scale(1.04);
+  box-shadow:
+    0 0 18px rgba(255,0,0,0.35),
+    0 0 30px rgba(255,0,0,0.25);
 }
 
-.album-card img {
+/* COVER IMAGE */
+.album-img {
   width: 100%;
-  height: 180px;
+  height: 220px;
   object-fit: cover;
-  cursor: pointer;
 }
 
-.album-card h3 {
-  color: var(--accent);
-  margin: 10px 0 4px;
-}
-
-.album-card p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 0 10px 10px;
-}
-
+/* ALBUM VIDE (PLACEHOLDER) */
 .album-placeholder {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.create-album {
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.photo-card {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.photo-card img {
+  height: 220px;
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  background: rgba(255,255,255,0.05);
+  color: #bbb;
+  font-size: 1.1rem;
+  font-style: italic;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.placeholder-icon {
+  font-size: 2.2rem;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+/* TEXTES */
+.album-title {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 1.5rem;
+  color: #ff4f4f;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.album-count {
+  text-align: center;
+  font-size: 1rem;
+  color: #ddd;
+  margin-top: 4px;
+}
+
+.album-author {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+/* DELETE BUTTON */
+.album-card .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255,0,0,0.7);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.album-card .delete-btn:hover {
+  background: rgba(255,0,0,0.9);
+  transform: scale(1.15);
+}
+
+/* =========================================
+   CREATE ALBUM — POLISHED
+========================================= */
+
+.create-album-form {
+  max-width: 600px;
+  margin: 0 auto 50px;
+  padding: 30px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 15px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 0, 0, 0.18);
+
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  animation: albumFade 0.35s ease;
+}
+
+@keyframes albumFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.create-album-form input[type="text"] {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.create-album-form input[type="text"]:focus {
+  border-color: #ff4f4f;
+}
+
+.create-album-form input[type="file"] {
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+}
+
+.create-album-form button {
+  margin-top: 8px;
+  padding: 12px;
+  font-family: "Bebas Neue";
+  font-size: 1.3rem;
+
+  background: #a30000;
+  border-radius: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.create-album-form button:hover {
+  background: #ff2222;
+  box-shadow:
+    0 0 10px rgba(255,0,0,0.4),
+    0 0 20px rgba(255,0,0,0.25);
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   UPLOAD PHOTO — POLISHED
+========================================= */
+
+.upload-form {
+  max-width: 500px;
+  margin: 25px auto 40px;
+  padding: 22px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 15px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 0, 0, 0.18);
+
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;
+
+  animation: fadeUpload 0.35s ease;
+}
+
+@keyframes fadeUpload {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* File input */
+.upload-form input[type="file"] {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #ccc;
   cursor: pointer;
 }
 
-.photo-card button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-size: 0.9rem;
+/* Button */
+.upload-form button {
+  width: 100%;
+  padding: 12px;
+
+  font-family: "Bebas Neue";
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  background: #a30000;
+  border-radius: 14px;
+  transition: 0.25s ease;
+}
+
+.upload-form button:hover {
+  background: #ff2222;
+  box-shadow:
+    0 0 10px rgba(255,0,0,0.4),
+    0 0 20px rgba(255,0,0,0.25);
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .upload-form {
+    padding: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .create-album-form {
+    padding: 22px;
+  }
 }

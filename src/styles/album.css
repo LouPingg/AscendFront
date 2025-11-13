@@ -1,0 +1,71 @@
+/* ======================
+   ALBUM PAGE
+====================== */
+
+.album-page {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-button {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  background: rgba(255,0,0,0.25);
+  border: 1px solid #a30000;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: #ff4f4f;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.25s ease;
+}
+
+.back-button:hover {
+  background: #a30000;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* ==== AUTHOR ==== */
+.album-author-info {
+  text-align: center;
+  color: #ddd;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* ==== UPLOAD FORM ==== */
+.upload-form {
+  background: rgba(255,255,255,0.06);
+  padding: 20px;
+  max-width: 480px;
+  margin: 20px auto 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-form button {
+  background: #a30000;
+}
+
+.upload-form button:hover {
+  background: #ff2222;
+}
+
+/* ==== PHOTO GRID ==== */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 28px;
+  padding: 0 20px;
+}
+
