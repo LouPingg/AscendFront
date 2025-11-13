@@ -52,3 +52,16 @@
     0 0 20px rgba(255, 0, 0, 0.25);
   transform: translateY(-2px);
 }
+.no-event-block {
+  text-align: center;
+  padding: 30px 0;
+  opacity: 0.9;
+}
+
+.no-event-block p {
+  font-size: 1.2rem;
+  margin-top: 12px;
+  color: #ccc;
+  font-family: "Bebas Neue", sans-serif;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}

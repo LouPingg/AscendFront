@@ -77,11 +77,13 @@ export default function Home() {
 
       {/* 🕒 UPCOMING EVENTS */}
       <h2 className="section-title">
-        <span className="icon">🕒</span> Upcoming Events
+        <span className="icon">🕒</span> Upcoming Events 
       </h2>
 
       {upcoming.length === 0 ? (
-        <p className="no-events">No upcoming events.</p>
+        <div className="no-event-block">
+  <p>No upcoming events 😭</p>
+</div>
       ) : (
         <div className="event-list">
           {upcoming.map((ev) => (
