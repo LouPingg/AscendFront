@@ -1,0 +1,221 @@
+/* ============================================================
+   RESPONSIVE GLOBAL PACK — ASCEND PROJECT
+   Breakpoints :
+     • 1024px → Tablet
+     • 768px  → Standard Mobile
+     • 480px  → Small Mobile
+============================================================ */
+
+
+/* ============================================================
+   📐  TABLETS  — max-width: 1024px
+============================================================ */
+@media (max-width: 1024px) {
+
+  /* Sidebar size */
+  .sidebar {
+    width: 180px;
+  }
+
+  .sidebar-title {
+    font-size: 1.4rem;
+  }
+
+  .sidebar-nav a {
+    font-size: 0.95rem;
+  }
+
+  /* Banner */
+  .banner-wrapper {
+    height: 28vh;
+  }
+
+  .banner-logo {
+    width: 260px;
+  }
+
+  /* Events */
+  .event-card {
+    max-width: 700px;
+  }
+
+  /* Pages */
+  .main-content {
+    padding: 28px;
+  }
+}
+
+
+/* ============================================================
+   📱  MOBILE — max-width: 768px
+============================================================ */
+@media (max-width: 768px) {
+
+  /* ===== LAYOUT ===== */
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 0;
+  }
+
+  .sidebar-title {
+    font-size: 1.3rem;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  /* ===== BANNER ===== */
+  .banner-wrapper {
+    height: 22vh;
+  }
+
+  .banner-logo {
+    width: 200px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main-content {
+    padding: 20px;
+  }
+
+  /* ===== EVENTS CARDS ===== */
+  .event-card {
+    max-width: 100%;
+  }
+
+  .event-card img {
+    height: 140px;
+  }
+
+  /* ===== GALLERY PAGE ===== */
+  .album-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .album-img {
+    height: 160px;
+  }
+
+  .album-title {
+    font-size: 1.2rem;
+  }
+
+  /* ===== ALBUM PAGE ===== */
+  .photo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    font-size: 2.2rem;
+  }
+
+  /* ===== AUTH FORMS ===== */
+  .auth-form {
+    max-width: 340px;
+    padding: 20px;
+  }
+
+  .auth-form input {
+    font-size: 0.95rem;
+  }
+
+  /* ===== ADMIN TABLE ===== */
+  .user-table {
+    font-size: 0.8rem;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 6px 4px;
+  }
+
+  /* ===== EVENTS FORM ===== */
+  .event-form {
+    padding: 18px;
+  }
+
+  .event-form label {
+    font-size: 1rem;
+  }
+}
+
+
+/* ============================================================
+   📱  SMALL MOBILE — max-width: 480px
+============================================================ */
+@media (max-width: 480px) {
+
+  /* Banner */
+  .banner-wrapper {
+    height: 18vh;
+  }
+
+  .banner-logo {
+    width: 150px;
+  }
+
+  /* Titles */
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  /* Photo grid → 1 colonne */
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Album grid → 1 colonne */
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Event images */
+  .event-card img {
+    height: 120px;
+  }
+
+  /* Smaller forms */
+  .auth-form input {
+    font-size: 0.9rem;
+  }
+
+  .event-form input,
+  .event-form textarea {
+    font-size: 0.9rem;
+  }
+}
+
+/* 📱 Mobile sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 40px;
+    padding-top: 15px;
+  }
+
+  .sidebar:hover {
+    width: 180px;
+  }
+
+  .sidebar-title {
+    font-size: 1.1rem;
+    padding-left: 10px;
+  }
+
+  .sidebar-nav a,
+  .sidebar-nav button {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+}

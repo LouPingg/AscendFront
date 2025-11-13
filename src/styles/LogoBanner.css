@@ -1,0 +1,7 @@
+/* src/styles/LogoBanner.css */
+.banner-logo {
+  width: 330px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
