@@ -9,7 +9,7 @@ export default function Layout({ children }) {
       <Sidebar />
 
       <div className="page-wrapper">
-        {/* Unique wrapper pour la bannière */}
+        {}
         <div className="banner-wrapper">
           <LogoBanner />
         </div>
