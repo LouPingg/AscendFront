@@ -1,0 +1,109 @@
+.property-card {
+  position: relative;
+  background: #111;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.property-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(255, 30, 30, 0.45);
+  border-color: rgba(255, 50, 50, 0.6);
+}
+
+.property-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.property-info {
+  padding: 18px;
+  text-align: center;
+}
+
+.property-info h3 {
+  color: #b30000;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.property-info p {
+  color: #ccc;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.property-author {
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+.property-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.property-tag {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  color: #ffd0d0;
+  font-size: 0.85rem;
+}
+
+/* ACTIONS WRAPPER */
+.property-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.property-edit-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 0, 0, 0.35);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.property-edit-btn:hover {
+  background: rgba(255, 0, 0, 0.35);
+  transform: scale(1.12);
+}
+
+.property-delete-btn {
+  background: rgba(255, 0, 0, 0.75);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.property-delete-btn:hover {
+  background: rgba(255, 40, 40, 0.95);
+  transform: scale(1.15);
+}

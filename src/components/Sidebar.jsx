@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Sidebar.css";
@@ -14,6 +13,7 @@ export default function Sidebar() {
         <Link to="/">Home</Link>
         <Link to="/gallery">Gallery</Link>
         <Link to="/events">Events</Link>
+        <Link to="/real-estate">Ascend Real Estate</Link>
 
         {!user && <Link to="/login">Login</Link>}
         {!user && <Link to="/signup">Signup</Link>}

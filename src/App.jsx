@@ -8,6 +8,7 @@ import Gallery from "./pages/Gallery";
 import Album from "./pages/Album";
 import Events from "./pages/Events";
 import Admin from "./pages/Admin";
+import RealEstate from "./pages/RealEstate";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/album/:id" element={<Album />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/real-estate" element={<RealEstate />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </Layout>

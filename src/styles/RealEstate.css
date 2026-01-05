@@ -1,0 +1,193 @@
+.real-estate {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+/* FILTERS PANEL */
+.re-filters {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px auto 25px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+}
+
+.re-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 260px;
+}
+
+.re-filter label {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.1rem;
+  color: #ff4f4f;
+  letter-spacing: 1px;
+}
+
+.re-reset {
+  background: #6d0000;
+}
+
+.re-reset:hover {
+  background: #ff0000;
+}
+
+/* TAG FILTER CHIPS */
+.re-tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.re-tag-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #ddd;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+
+.re-tag-chip:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 0, 0, 0.12);
+}
+
+.re-tag-chip.selected {
+  background: rgba(255, 0, 0, 0.25);
+  border-color: rgba(255, 0, 0, 0.55);
+  color: #fff;
+}
+
+/* OPEN CREATE BUTTON */
+.re-open-create {
+  display: block;
+  margin: 0 auto 25px;
+  max-width: 260px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  background: #a30000;
+  border-radius: 14px;
+  padding: 12px 16px;
+  transition: 0.25s ease;
+}
+
+.re-open-create:hover {
+  background: #ff2222;
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.35);
+}
+
+/* MODAL */
+.re-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 6000;
+}
+
+.re-modal {
+  width: min(720px, 92vw);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 18px;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+  padding: 18px;
+}
+
+.re-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.re-modal-header h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.6rem;
+  color: #ff4f4f;
+  margin: 0;
+}
+
+.re-modal-close {
+  background: rgba(255, 0, 0, 0.7);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+}
+
+.re-modal-close:hover {
+  background: rgba(255, 0, 0, 0.95);
+  transform: scale(1.08);
+}
+
+/* CREATE/EDIT FORM */
+.property-form {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* TAG PICKER (inside create/edit form) */
+.tag-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tag-chip {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #ddd;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+
+.tag-chip:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 0, 0, 0.12);
+}
+
+.tag-chip.selected {
+  background: rgba(255, 0, 0, 0.25);
+  border-color: rgba(255, 0, 0, 0.55);
+  color: #fff;
+}
+
+/* LIST */
+.property-list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+.re-modal--compact {
+  width: min(560px, 92vw);
+  max-height: 82vh;
+  padding: 16px;
+}
+
+.re-modal-overlay {
+  z-index: 99999; /* au-dessus des cards / sidebar */
+}
